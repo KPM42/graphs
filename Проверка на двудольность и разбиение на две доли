@@ -1,0 +1,23 @@
+
+vector<vector<int>> e;
+vector<int> color; // изначально - нули
+bool bipartite = true;
+
+int invert(int c)
+{
+	return (c == 1 ? 2 : 1);
+}
+
+void dfs(int v, int c)
+{
+	color[v] = c;
+	for (auto to : e[v])
+	{
+		if (color[to] == 0)
+			dfs(to, invert(c));
+		else
+			if (color[to] == c)
+				bipartite = false;
+	}
+
+}
