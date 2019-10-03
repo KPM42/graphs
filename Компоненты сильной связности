@@ -1,0 +1,39 @@
+int n;
+vec<vec<int>> g,gr;
+vec<bool> used;
+vec<int> order;
+//g - граф, gr- транспонированный граф
+void dfs1(int v, vec<vec<int>> &g){// получаем порядок выходов
+    used[v] = true;
+    for0(i, g[v].size()){
+        int to = g[v][i];
+        if(used[to])
+            continue;
+        dfs1(to, g);
+    }
+    order.push_back(v);
+}
+
+void dfs2(int v, vec<vec<int>> & gr, vec<int> &component){// обходим компоненту
+    used[v] = true;
+    component.push_back(v);
+    for0(i, gr[v].size()){
+        int to = gr[v][i];
+        if(used[to])
+            continue;
+        dfs2(to, gr, component);
+    }
+}
+
+int main()
+{
+    //запускаем дфс1 на графе, получаем ордер и чистим юзды
+    vec<vec<int>> components;
+    for(int i = n-1; i >= 0; i--){
+        int v = order[i];
+        if(!used[v]){
+            components.push_back(vec<int>());
+            dfs2(v, gr, components.back());
+        }
+    }
+}
