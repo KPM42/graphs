@@ -1,0 +1,52 @@
+const int N = 100000 + 1010;
+
+vector<pair<int, pair<int, int>>> e;
+
+vector<int> p(N);
+vector<int>sz(N);
+
+void Init()
+{
+	for (int i = 0; i < N; i++)
+		p[i] = i, sz[i] = 1;
+}
+
+int find_set(int v)
+{
+	if (v == p[v])
+		return v;
+}
+void union_set(int a, int b)
+{
+	a = find_set(a);
+	b = find_set(b);
+	if (a != b)
+	{
+		if (sz[a] < sz[b])
+			swap(a, b);
+		p[b] = a;
+		sz[a] += sz[b];
+	}
+}
+
+pair<vector<pair<int,int>>,int> MinSpanningTree()
+{
+	sort(all(e));
+	int cost = 0;
+	
+	vector<pair<int, int>> ans;
+
+	for (int i = 0; i < e.size(); i++)
+	{
+		int a = e[i].second.first;
+		int b = e[i].second.second;
+		if (find_set(a) != find_set(b))
+		{
+			cost += e[i].first;
+			ans.pb(e[i].second);
+			union_set(a, b);
+		}
+
+	}
+	return { ans,cost };
+}
