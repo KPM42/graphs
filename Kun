@@ -1,0 +1,34 @@
+Тупо емакс
+
+
+int n, k;
+vector < vector<int> > g;
+vector<int> mt;
+vector<bool> used;
+ 
+bool kun (int v) {
+	if (used[v])  return false; 
+	used[v] = true;
+	for (size_t i=0; i<g[v].size(); ++i) {
+		int to = g[v][i];
+		if (mt[to] == -1 || kun(mt[to])) { // если to свободна или можем перетыкнуть ребро из mt[to] в другую вершину
+			mt[to] = v;
+			return true;
+		}
+	}
+	return false;
+}
+ 
+int main() {
+	... чтение графа ...
+ 
+	mt.assign (k, -1);
+	for (int v=0; v<n; ++v) {
+		used.assign (n, false); // обнулять юзды!!!
+		kun(v);// из каждой вершины запускаем куна
+	}
+ 
+	for (int i=0; i<k; ++i)
+		if (mt[i] != -1)
+			printf ("%d %d\n", mt[i]+1, i+1);
+}
