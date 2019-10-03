@@ -16,7 +16,7 @@ void dfs(int v, int p = -1){
         else{
             dfs(to, v);
              fup[v] = min(fup[v], fup[to]);//если из детей получили лучший ответ, то обновляем
-            if(fup[to] < tin[v]){// не смогли подняться на высоту v
+            if(fup[to] < tin[v]){// не смогли подняться до глубины v
                 cout << "most " << v << " " << to << en;
             }
         }
