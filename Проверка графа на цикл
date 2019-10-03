@@ -1,0 +1,21 @@
+vector<vector<int>> e;
+vector<int> color; // изначально - нули
+bool cycle = false;
+
+void dfs(int v, int p = -1)
+{
+	color[v] = 1;
+	for (auto to : e[v])
+	{
+		if (to == p)
+			continue;
+
+		if (color[to] == 0)
+			dfs(to, v);
+
+		if (color[to] == 1)
+			cycle = true;
+	}
+
+	color[v] = 2;
+}
