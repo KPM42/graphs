@@ -1,0 +1,22 @@
+vec<vec<int>> g;
+vec<bool> used;
+vec<int> topsort;
+void dfs(int v){
+    used[v] = true;
+    for0(i, g[v].size()){
+        int to = g[v][i];
+        if(!used[to])
+            dfs(to);
+    }
+    topsort.push_back(v);
+}
+
+int main()
+{
+#ifdef DEBUG
+    freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
+#endif
+    Дфсим граф, а потом
+    reverse(all(topsort));
+}
