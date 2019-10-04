@@ -1,3 +1,4 @@
+// топ сорт возможен, если граф ацикличен
 vec<vec<int>> g;
 vec<bool> used;
 vec<int> topsort;
