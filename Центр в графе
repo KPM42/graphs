@@ -1,0 +1,38 @@
+vector<int> degree(n+1);
+    vector<int> level(n+1,0);
+    
+    for (int i = 1;i<=n;i++)
+    {
+        degree[i] = (int)g[i].size();
+        if (degree[i]==1)
+            q.push(i);
+    }
+
+    int maxlevel = 0;
+    
+    queue<int> q;
+    
+    while (!q.empty())
+    {
+        v=  q.front();
+        q.pop();
+        for (auto to:g[v])
+        {
+            degree[to]--;
+            if (degree[to]==1)
+            {
+                 q.push(to);
+                 level[to] = level[v]+1;
+                 maxlevel = max(maxlevel,level[to]);
+            }
+
+        }
+    }
+
+    set<int> center;
+    for (int v = 1;v<=n;v++)
+        if (level[v] == maxlevel)
+            center.insert(v);
+            
+ // диаметр d = 2*maxlevel + |c| -1
+ // радиус r = (d+1)/2
